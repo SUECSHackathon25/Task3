@@ -17,21 +17,31 @@ df = pandas.DataFrame(columns=["Poster", "Grader1", "Grade1", "Grader2", "Grade2
 
 for poster in all_posters:
     chosen_graders = random.sample(all_graders, 2)
+    have_first_grader = random.random() > 0.1
+    have_first_grade = random.random() > 0.1 if have_first_grader else False
     have_second_grader = random.random() > 0.1
+    have_second_grade = random.random() > 0.1 if have_second_grader else False
     df = pandas.concat(
         [
-            df,
+            df if not df.empty else None, 
             pandas.DataFrame(
                 {
                     "Poster": [poster],
-                    "Grader1": [chosen_graders[0]],
-                    "Grade1": [random.randint(0, 10)],
+                    "Grader1": [chosen_graders[0] if have_first_grader else None],
+                    "Grade1": [random.randint(0, 10) if have_first_grade else None],
                     "Grader2": [chosen_graders[1] if have_second_grader else None],
-                    "Grade2": [random.randint(0, 10) if have_second_grader else None],
+                    "Grade2": [random.randint(0, 10) if have_second_grade else None],
                 }
             ),
         ],
         ignore_index=True,
     )
 
-df.to_excel(sys.argv[1], index=False)
+if len(sys.argv) != 2:
+    print("Usage: fake <output.xlsx>")
+    sys.exit(1)
+
+if sys.argv[1].endswith(".xlsx"):
+    df.to_excel(sys.argv[1], index=False)
+else:
+    df.to_excel(sys.argv[1] + ".xlsx", index=False)
