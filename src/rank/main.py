@@ -99,9 +99,9 @@ if __name__ == "__main__":
 
     df = rank(df)
 
-    if not options.output_file.endswith(".xlsx"):
-        options.output_file += ".xlsx"
     if options.output_file.endswith(".csv"):
         df.to_csv(options.output_file, index=False)
+    if not options.output_file.endswith(".xlsx"):
+        options.output_file += ".xlsx"
     if options.output_file.endswith(".xlsx") or options.output_file.endswith(".xls"):
         df.to_excel(options.output_file, index=False)
