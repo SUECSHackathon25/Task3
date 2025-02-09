@@ -50,10 +50,10 @@ class TestWithPreprocessing(unittest.TestCase):
         # Create a sample DataFrame
         data = {
             'Grader1': ['Alice', 'Bob', np.nan, 'Charlie', 'Bob'],
-            'Grade1': [85, 90, np.nan, np.nan, 80],
+            'Grade1': [85, 0, np.nan, np.nan, 80],
             'Grader2': ['Bob', np.nan, 'Charlie', np.nan, 'Charlie'],
             'Grade2': [88, np.nan, 92, np.nan, np.nan],
-            'Poster': ['Post1', np.nan, np.nan, 'Post2', 'Post3']
+            'Poster': ['Post1', "Post0", np.nan, 'Post2', 'Post3']
         }
         df = pd.DataFrame(data)
 

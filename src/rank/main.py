@@ -44,6 +44,7 @@ def calc_mean_grades(row: pd.Series) -> float:
 def with_preprocessing(df: pd.DataFrame) -> pd.DataFrame:
     for i in range(1, GRADER_COUNT + 1):
         df.loc[df[f"Grade{i}"].isna(), f"Grader{i}"] = np.nan
+        df.loc[df[f"Grade{i}"] == 0, f"Grader{i}"] = np.nan
         df.loc[df[f"Grader{i}"].isna(), f"Grade{i}"] = np.nan
     df = df.dropna(subset=["Poster"], how="all")
     df = df.dropna(subset=[f"Grader{i}" for i in range(1, GRADER_COUNT + 1)], how="all")
